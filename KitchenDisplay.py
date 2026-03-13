@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import *
 from datetime import datetime, timedelta
 from datetime import date
 from threading import Thread
-from playsound import playsound
+import vlc
 import time
 from pynput.keyboard import Key, Controller
 import json
@@ -192,7 +192,7 @@ class GatheringDisplay(QtWidgets.QDialog,Ui_gatheringWindow):
 
         width = screenWidth / (numCols + 0.1)
         if self.isKitchen:
-            height = screenHeight - 50
+            height = screenHeight - 100
         else:
             height = (screenHeight - otherFrameHeight - 50) / 2
 
@@ -201,8 +201,10 @@ class GatheringDisplay(QtWidgets.QDialog,Ui_gatheringWindow):
             if i <= numCols:
                 frame.show()
                 if self.isKitchen:
-                    frame.setFixedHeight(int((height * 2)
-                                             + self.frame_2.height() - 20))
+                    frame.setFixedHeight(int((height) - 20))
+
+#                    frame.setFixedHeight(int((height) + self.frame_2.height() - 20))
+
                 else:
                     frame.setFixedHeight(int(height))
                 frame.setFixedWidth(int(width))
@@ -421,6 +423,12 @@ class GatheringDisplay(QtWidgets.QDialog,Ui_gatheringWindow):
             return ""
         return "s"
 
+    def play_sound(self, path):
+        p = vlc.MediaPlayer(path)
+        p.play()
+        # Give VLC a moment to start; then you can return if you don't care when it finishes
+        time.sleep(0.1)
+
     def updateLabels(self, typey, isBarista, prefix, gigsLength, leftOffset):
         label = getattr(self, typey + "_gigs_label")
         plateCount = sum(i.getPlateCount(isBarista, self.isKitchen, self.pending) for i in self.gigsToDisplay)
@@ -443,7 +451,7 @@ class GatheringDisplay(QtWidgets.QDialog,Ui_gatheringWindow):
             if gigsLength == 0: self.lastCount[prefix] = 0
             if (self.lastCount[prefix] < gigsLength) and gigsLength != 0:                 
                 if self.isKitchen:
-                  quack = Thread(target = playsound, args = ("/home/projects/piGathering/bin/moo.mp3", ))
+                  quack = Thread(target=self.play_sound, args=("/home/projects/kitchenscreen/chicken.mp3",))
                   quack.start()
                 # Blink the Table Name of the last updated:
                 if self.lastBaristaUpdated: 

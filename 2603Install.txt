@@ -1,0 +1,23 @@
+
+sudo apt install qt5-base-dev
+sudo apt install python3-pyqt5
+sudo apt install qttools5-dev-tools pyqt5-dev-tools
+sudo apt install git
+sudo apt install python3.12-venv
+sudo apt install build-essential
+sudo apt install python3-dev
+sudo apt install -y vlc
+sudo adduser retreat
+...add env variables to bashrc
+
+
+Clone the repo
+python3 -m venv --system-site-packages kitchenscreen
+chown -R retreat:users /home/projects
+
+python3 -m venv kitchenscreen
+bin/pip install mysql-connector
+bin/pip install python-vlc
+bin/pip install -r freeze.txt
+
+cp Kitchen.desktop ~retreat/Desktop - and allow it to be executable

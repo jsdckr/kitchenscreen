@@ -1,7 +1,7 @@
 [Desktop Entry]
 Comment=Taranaki Retreat Waimanako POK Kitchen Screen
 Terminal=false
-Name=Barista
+Name=KitchenTeamo
 Exec=env DB_HOST="3.26.64.170" DB_PORT=3307 WAIMANAKOPOK="Space2B!" /home/projects/kitchenscreen/bin/python /home/projects/kitchenscreen/KitchenDisplay.py isKitchen
 Type=Application
 Icon=/home/projects/kitchenscreen/Waimanako.ico

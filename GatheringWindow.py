@@ -860,4 +860,3 @@ class Ui_gatheringWindow(object):
         self.chills_table_6.setText(_translate("gatheringWindow", "Table: Table Name"))
         self.chills_date_6.setText(_translate("gatheringWindow", "Ordered at:"))
 
-import workSpaceRes_rc
